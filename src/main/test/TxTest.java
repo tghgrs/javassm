@@ -1,4 +1,5 @@
 import com.fic091.bean.Employee;
+import com.fic091.dao.EmployeeDao;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -21,6 +22,9 @@ public class TxTest {
     ApplicationContext ioc=new ClassPathXmlApplicationContext("JDBCConfig.xml");
     JdbcTemplate jdbcTemplate=ioc.getBean(JdbcTemplate.class);
     NamedParameterJdbcTemplate namedParameterJdbcTemplate=ioc.getBean(NamedParameterJdbcTemplate.class);
+
+
+
     @Test
     public void test() throws SQLException {
         DataSource bean=ioc.getBean(DataSource.class);
@@ -108,5 +112,15 @@ public class TxTest {
         employee.setSalary(998.98);
         int update = namedParameterJdbcTemplate.update(sql, new BeanPropertySqlParameterSource(employee));
         System.out.println(update);
+    }
+
+    //创建BookDao,自动装配JdbcTemplate
+    @Test
+    public void test09(){
+        EmployeeDao bean=ioc.getBean(EmployeeDao.class);
+        Employee employee=new Employee();
+        employee.setEmpName("哈哈2");
+        employee.setSalary(998.98);
+        bean.saveEmployee(employee);
     }
 }
