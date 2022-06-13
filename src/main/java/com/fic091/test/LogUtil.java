@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-
+//AOP
 @Aspect
 @Component
 public class LogUtil{
